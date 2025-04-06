@@ -1,0 +1,6 @@
+﻿services:
+  traineetrack.api:
+    image: traineetrack.api
+    build:
+      context: .
+      dockerfile: TraineeTrack.API/Dockerfile
