@@ -1,6 +1,37 @@
 ﻿services:
-  traineetrack.api:
-    image: traineetrack.api
+  traineetrack_api:
     build:
-      context: .
-      dockerfile: TraineeTrack.API/Dockerfile
+      context: TraineeTrack.API
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - TraineeTrack.API/.env
+    depends_on:
+      - postgres
+    networks:
+      - main_net
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    env_file:
+      - TraineeTrack.API/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 1s
+      timeout: 10s
+      retries: 5
+    networks:
+      - main_net
+      
+networks:
+  main_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

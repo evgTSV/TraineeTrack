@@ -7,7 +7,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["TraineeTrack.API/TraineeTrack.API.csproj", "TraineeTrack.API/"]
+COPY ["TraineeTrack.API.csproj", "TraineeTrack.API/"]
 RUN dotnet restore "TraineeTrack.API/TraineeTrack.API.csproj"
 COPY . .
 WORKDIR "/src/TraineeTrack.API"
